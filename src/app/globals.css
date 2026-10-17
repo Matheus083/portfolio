@@ -1,3 +1,54 @@
+:root {
+  /* ==========================================================================
+     1. Cores do Tema Escuro (Base & Superfícies)
+     ========================================================================== */
+  --bg-primary: #0b0f17;
+  --bg-surface: #111827;
+  --bg-surface-hover: #1f2937;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+
+  /* ==========================================================================
+     2. Destaque Azul Profissional & Estados Interativos
+     ========================================================================== */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-active: #1e40af;
+  --color-primary-glow: rgba(37, 99, 235, 0.35);
+
+  /* ==========================================================================
+     3. Tipografia & Contraste Acessível (WCAG AA / AAA)
+     ========================================================================== */
+  --text-primary: #f8fafc;     /* Contraste > 15:1 em relação ao fundo */
+  --text-secondary: #94a3b8;   /* Contraste > 7:1 em relação ao fundo */
+  --text-muted: #64748b;       /* Contraste > 4.5:1 (Padrão mínimo WCAG AA) */
+
+  /* ==========================================================================
+     4. Layout & Grid Tokens
+     ========================================================================== */
+  --container-width: 1200px;
+  --container-padding: 1.25rem;
+
+  /* ==========================================================================
+     5. Raio de Borda & Transições
+     ========================================================================== */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Padding Responsivo para Container */
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2rem;
+  }
+}
+
+/* ==========================================================================
+   Reset CSS Moderno
+   ========================================================================== */
 *,
 *::before,
 *::after {
@@ -6,19 +57,46 @@
   padding: 0;
 }
 
-html,
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
 body {
   max-width: 100vw;
-  overflow-x: hidden;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
   min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* ==========================================================================
+   Acessibilidade & Foco por Teclado (:focus-visible)
+   ========================================================================== */
+/* Remove outline padrão ao clicar com mouse, preservando acessibilidade de teclado */
+:focus {
+  outline: none;
+}
+
+/* Foco destacado e visível apenas para navegação via teclado */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--color-primary-glow);
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Classes Utilitárias de Layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 }

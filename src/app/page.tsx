@@ -1,7 +1,10 @@
+import { Hero } from '@/components/Hero/Hero';
+
 export default function HomePage() {
   return (
-    <main style={{ display: 'grid', placeItems: 'center', minHeight: '100vh' }}>
-      <h1>Portfolio Under Construction</h1>
+    <main id="conteudo-principal">
+      <Hero />
     </main>
   );
 }
+
