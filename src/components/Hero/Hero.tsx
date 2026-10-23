@@ -54,7 +54,7 @@ export function Hero() {
         <div className={styles.imageContainer}>
           <div className={styles.imageFrame}>
             <Image
-              src="/images/matheus.png"
+              src="/images/matheus.jpeg"
               alt="Fotografia profissional de Matheus Nunes"
               width={640}
               height={800}
