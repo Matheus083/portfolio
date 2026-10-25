@@ -1,41 +1,70 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
 
+const NAV_LINKS = [
+  { href: '#sobre', label: 'Sobre' },
+  { href: '#habilidades', label: 'Habilidades' },
+  { href: '#projetos', label: 'Projetos' },
+  { href: '#contato', label: 'Contato' },
+];
+
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Fecha o menu móvel ao pressionar Escape
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    if (isMenuOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  function closeMenu() {
+    setIsMenuOpen(false);
+  }
+
   return (
     <header className={styles.header}>
       <div className={`container ${styles.container}`}>
         {/* Identidade / Logotipo */}
-        <Link href="/" className={styles.brand} aria-label="Matheus Nunes - Página Inicial">
+        <Link
+          href="/"
+          className={styles.brand}
+          aria-label="Matheus Nunes - Página Inicial"
+          onClick={closeMenu}
+        >
           Matheus Nunes<span className={styles.brandDot}>.</span>
         </Link>
 
-        {/* Navegação Semântica */}
+        {/* Navegação Desktop */}
         <nav className={styles.nav} aria-label="Navegação principal">
           <ul className={styles.navList}>
-            <li>
-              <a href="#sobre" className={styles.navLink}>
-                Sobre
-              </a>
-            </li>
-            <li>
-              <a href="#habilidades" className={styles.navLink}>
-                Habilidades
-              </a>
-            </li>
-            <li>
-              <a href="#projetos" className={styles.navLink}>
-                Projetos
-              </a>
-            </li>
-            <li>
-              <a href="#contato" className={styles.navLink}>
-                Contato
-              </a>
-            </li>
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className={styles.navLink}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
 
-          {/* Link Externo Verificado do GitHub */}
+          {/* Ações (GitHub + Toggle Mobile) */}
           <div className={styles.actions}>
             <a
               href="https://github.com/Matheus083"
@@ -60,9 +89,92 @@ export function Header() {
               </svg>
               <span className={styles.githubText}>GitHub</span>
             </a>
+
+            {/* Botão de alternância do menu mobile */}
+            <button
+              type="button"
+              className={styles.menuToggle}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
+              aria-label={
+                isMenuOpen
+                  ? 'Fechar menu de navegação'
+                  : 'Abrir menu de navegação'
+              }
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+            >
+              {isMenuOpen ? (
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="4" y1="7" x2="20" y2="7" />
+                  <line x1="4" y1="12" x2="20" y2="12" />
+                  <line x1="4" y1="17" x2="20" y2="17" />
+                </svg>
+              )}
+            </button>
           </div>
         </nav>
       </div>
+
+      {/* Gaveta do menu mobile */}
+      {isMenuOpen && (
+        <div
+          id="mobile-nav"
+          className={styles.mobileDrawer}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navegação móvel"
+        >
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className={styles.mobileNavLink}
+              onClick={closeMenu}
+            >
+              <span>{link.label}</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className={styles.mobileNavArrow}
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      )}
     </header>
   );
 }
