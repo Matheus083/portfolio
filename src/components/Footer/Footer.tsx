@@ -1,51 +1,42 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
+import { navigationContent } from '@/content/navigation';
 import styles from './Footer.module.css';
 
 export function Footer() {
+  const { lang } = useLanguage();
+  const navData = navigationContent[lang];
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className={`container ${styles.content}`}>
         <div>
-          <Link href="/" className={styles.brand} aria-label="Ir para o início">
+          <Link href="/" className={styles.brand} aria-label={navData.brandAria}>
             Matheus Nunes<span className={styles.brandDot}>.</span>
           </Link>
-          <p className={styles.tagline}>
-            Desenvolvedor Full Stack • Transformando ideias em software de alto impacto
-          </p>
+          <p className={styles.tagline}>{navData.footerTagline}</p>
         </div>
 
-        <ul className={styles.nav} aria-label="Navegação do rodapé">
+        <ul className={styles.nav} aria-label={lang === 'pt' ? 'Navegação do rodapé' : 'Footer navigation'}>
           <li>
             <a href="#inicio" className={styles.navLink}>
-              Início
+              {lang === 'pt' ? 'Início' : 'Home'}
             </a>
           </li>
-          <li>
-            <a href="#sobre" className={styles.navLink}>
-              Sobre
-            </a>
-          </li>
-          <li>
-            <a href="#habilidades" className={styles.navLink}>
-              Habilidades
-            </a>
-          </li>
-          <li>
-            <a href="#projetos" className={styles.navLink}>
-              Projetos
-            </a>
-          </li>
-          <li>
-            <a href="#contato" className={styles.navLink}>
-              Contato
-            </a>
-          </li>
+          {navData.links.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} className={styles.navLink}>
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <div className={styles.copyright}>
-          <p>© {currentYear} Matheus Nunes. Todos os direitos reservados.</p>
+          <p>© {currentYear} {navData.footerCopyright}</p>
         </div>
       </div>
     </footer>

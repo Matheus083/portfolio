@@ -1,33 +1,39 @@
+'use client';
+
 import Image from 'next/image';
+import { useLanguage } from '@/context/LanguageContext';
+import { heroContent } from '@/content/hero';
 import styles from './Hero.module.css';
 
 export function Hero() {
+  const { lang } = useLanguage();
+  const content = heroContent[lang];
+
   return (
-    <section id="inicio" className={styles.hero} aria-label="Apresentação principal">
+    <section id="inicio" className={styles.hero} aria-label={content.name}>
       <div className={`container ${styles.grid}`}>
         {/* Conteúdo textual */}
         <div className={styles.content}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} aria-hidden="true" />
-            <span>Disponível para novos projetos</span>
+            <span>{content.badge}</span>
           </div>
 
           <h1 className={styles.title}>
-            Olá, sou <span className={styles.highlight}>Matheus Nunes</span>
+            {content.greetingPrefix} <span className={styles.highlight}>{content.name}</span>
           </h1>
 
           <p className={styles.subtitle}>
-            Desenvolvedor Full Stack
+            {content.role}
           </p>
 
           <p className={styles.description}>
-            Especializado no desenvolvimento de aplicações web completas, combinando arquitetura
-            escalável no ecossistema TypeScript com interfaces modernas, responsivas e de alta performance.
+            {content.description}
           </p>
 
           <div className={styles.actions}>
             <a href="#projetos" className={styles.primaryBtn}>
-              <span>Ver Projetos</span>
+              <span>{content.ctaProjects}</span>
               <svg
                 width="16"
                 height="16"
@@ -45,7 +51,7 @@ export function Hero() {
             </a>
 
             <a href="#contato" className={styles.secondaryBtn}>
-              <span>Entrar em Contato</span>
+              <span>{content.ctaContact}</span>
             </a>
           </div>
         </div>
@@ -55,7 +61,7 @@ export function Hero() {
           <div className={styles.imageFrame}>
             <Image
               src="/images/matheus.jpeg"
-              alt="Fotografia profissional de Matheus Nunes"
+              alt={content.imageAlt}
               width={640}
               height={800}
               priority

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { LanguageProvider } from '@/context/LanguageContext';
 import { Header } from '@/components/Header/Header';
 import { Footer } from '@/components/Footer/Footer';
 import './globals.css';
@@ -45,11 +46,13 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Header />
-        <div style={{ paddingTop: '4.5rem' }}>
-          {children}
-          <Footer />
-        </div>
+        <LanguageProvider>
+          <Header />
+          <div style={{ paddingTop: '4.5rem' }}>
+            {children}
+            <Footer />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );

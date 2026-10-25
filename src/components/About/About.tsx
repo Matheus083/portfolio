@@ -1,19 +1,25 @@
-import { aboutData } from '@/content/about';
+'use client';
+
+import { useLanguage } from '@/context/LanguageContext';
+import { aboutContent } from '@/content/about';
 import styles from './About.module.css';
 
 export function About() {
+  const { lang } = useLanguage();
+  const data = aboutContent[lang];
+
   return (
     <section
-      id={aboutData.sectionId}
+      id={data.sectionId}
       className={styles.about}
       aria-labelledby="sobre-titulo"
     >
       <div className="container">
         {/* Cabeçalho da seção */}
         <div className={styles.header}>
-          <span className={styles.badge}>{aboutData.badge}</span>
+          <span className={styles.badge}>{data.badge}</span>
           <h2 id="sobre-titulo" className={styles.title}>
-            {aboutData.title}
+            {data.title}
           </h2>
         </div>
 
@@ -21,7 +27,7 @@ export function About() {
         <div className={styles.grid}>
           {/* Coluna de texto descritivo */}
           <div className={styles.bio}>
-            {aboutData.paragraphs.map((paragraph, index) => (
+            {data.paragraphs.map((paragraph, index) => (
               <p key={index} className={styles.paragraph}>
                 {paragraph}
               </p>
@@ -30,7 +36,7 @@ export function About() {
 
           {/* Coluna de pilares de atuação */}
           <div className={styles.highlights}>
-            {aboutData.highlights.map((highlight) => (
+            {data.highlights.map((highlight) => (
               <article key={highlight.id} className={styles.highlightCard}>
                 <h3 className={styles.highlightTitle}>
                   <span className={styles.highlightDot} aria-hidden="true" />

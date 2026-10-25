@@ -1,4 +1,7 @@
-import { contactData, ContactChannel } from '@/content/contact';
+'use client';
+
+import { useLanguage } from '@/context/LanguageContext';
+import { contactContent, ContactChannel } from '@/content/contact';
 import styles from './Contact.module.css';
 
 function ChannelIcon({ id }: { id: string }) {
@@ -94,26 +97,29 @@ function ChannelIcon({ id }: { id: string }) {
 }
 
 export function Contact() {
+  const { lang } = useLanguage();
+  const data = contactContent[lang];
+
   return (
     <section
-      id={contactData.sectionId}
+      id={data.sectionId}
       className={styles.contact}
       aria-labelledby="contato-titulo"
     >
       <div className="container">
         <div className={styles.card}>
-          <span className={styles.badge}>{contactData.badge}</span>
+          <span className={styles.badge}>{data.badge}</span>
           <h2 id="contato-titulo" className={styles.title}>
-            {contactData.title}
+            {data.title}
           </h2>
-          <p className={styles.description}>{contactData.description}</p>
+          <p className={styles.description}>{data.description}</p>
 
           <div
             className={styles.grid}
             role="list"
-            aria-label="Canais de contato direto"
+            aria-label={lang === 'pt' ? 'Canais de contato direto' : 'Direct contact channels'}
           >
-            {contactData.channels.map((channel: ContactChannel) => (
+            {data.channels.map((channel: ContactChannel) => (
               <a
                 key={channel.id}
                 href={channel.url}
@@ -125,7 +131,7 @@ export function Contact() {
                 }
                 className={styles.channelCard}
                 aria-label={`${channel.name}: ${channel.label}${
-                  channel.type !== 'email' ? ' (abre em nova aba)' : ''
+                  channel.type !== 'email' ? (lang === 'pt' ? ' (abre em nova aba)' : ' (opens in new tab)') : ''
                 }`}
                 role="listitem"
               >

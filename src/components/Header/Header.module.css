@@ -112,6 +112,43 @@
   transform: translateY(-1px);
 }
 
+/* Botão de Alternância de Idioma */
+.langToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.langToggle:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+.langActive {
+  color: var(--color-primary);
+}
+
+.langInactive {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.langDivider {
+  color: var(--border-medium);
+  font-weight: 400;
+}
+
 /* Botão de Menu Mobile (Hambúrguer) */
 .menuToggle {
   display: none;

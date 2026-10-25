@@ -1,26 +1,32 @@
-import { skillsData } from '@/content/skills';
+'use client';
+
+import { useLanguage } from '@/context/LanguageContext';
+import { skillsContent } from '@/content/skills';
 import styles from './Skills.module.css';
 
 export function Skills() {
+  const { lang } = useLanguage();
+  const data = skillsContent[lang];
+
   return (
     <section
-      id={skillsData.sectionId}
+      id={data.sectionId}
       className={styles.skills}
       aria-labelledby="habilidades-titulo"
     >
       <div className="container">
         {/* Cabeçalho da seção */}
         <div className={styles.header}>
-          <span className={styles.badge}>{skillsData.badge}</span>
+          <span className={styles.badge}>{data.badge}</span>
           <h2 id="habilidades-titulo" className={styles.title}>
-            {skillsData.title}
+            {data.title}
           </h2>
-          <p className={styles.subtitle}>{skillsData.subtitle}</p>
+          <p className={styles.subtitle}>{data.subtitle}</p>
         </div>
 
         {/* Grade de categorias */}
         <div className={styles.grid}>
-          {skillsData.categories.map((category) => (
+          {data.categories.map((category) => (
             <article key={category.id} className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.categoryTitle}>{category.title}</h3>
