@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Header } from '@/components/Header/Header';
+import { Footer } from '@/components/Footer/Footer';
 import './globals.css';
 
 const inter = Inter({
@@ -38,7 +39,10 @@ export default function RootLayout({
     <html lang="pt-BR" className={inter.variable}>
       <body className={inter.className}>
         <Header />
-        <div style={{ paddingTop: '4.5rem' }}>{children}</div>
+        <div style={{ paddingTop: '4.5rem' }}>
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
