@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
     default: 'Matheus Nunes | Desenvolvedor Full Stack',
     template: '%s | Matheus Nunes',
@@ -21,14 +22,41 @@ export const metadata: Metadata = {
   keywords: [
     'Matheus Nunes',
     'Desenvolvedor Full Stack',
+    'Full Stack Developer',
     'Software Engineer',
     'Next.js',
     'React',
     'TypeScript',
     'Node.js',
+    'Python',
+    'Docker',
   ],
-  authors: [{ name: 'Matheus Nunes' }],
+  authors: [{ name: 'Matheus Nunes', url: 'https://github.com/Matheus083' }],
   creator: 'Matheus Nunes',
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    alternateLocale: 'en_US',
+    title: 'Matheus Nunes | Desenvolvedor Full Stack',
+    description:
+      'Portfólio profissional de Matheus Nunes, Desenvolvedor Full Stack especializado em Next.js, TypeScript e APIs escaláveis.',
+    siteName: 'Matheus Nunes Portfolio',
+    images: [
+      {
+        url: '/images/matheus.jpeg',
+        width: 640,
+        height: 800,
+        alt: 'Matheus Nunes - Desenvolvedor Full Stack',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Matheus Nunes | Desenvolvedor Full Stack',
+    description:
+      'Portfólio profissional de Matheus Nunes, Desenvolvedor Full Stack especializado em Next.js, TypeScript e APIs escaláveis.',
+    images: ['/images/matheus.jpeg'],
+  },
 };
 
 export default function RootLayout({

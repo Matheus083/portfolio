@@ -137,3 +137,18 @@ body {
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
 }
+
+/* ==========================================================================
+   Acessibilidade: Respeito à Preferência de Movimento Reduzido (WCAG)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
