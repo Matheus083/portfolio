@@ -37,6 +37,43 @@
   --radius-lg: 16px;
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ==========================================================================
+     6. Fundos Específicos (Header & Footer)
+     ========================================================================== */
+  --header-bg: rgba(11, 15, 23, 0.85);
+  --header-mobile-bg: rgba(11, 15, 23, 0.96);
+  --bg-footer: #080b12;
+}
+
+/* ==========================================================================
+   Tokens do Tema Claro (Ativado via data-theme="light")
+   ========================================================================== */
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Superfícies & Base */
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1f5f9;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.16);
+
+  /* Destaque Azul */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-active: #1e40af;
+  --color-primary-glow: rgba(37, 99, 235, 0.2);
+
+  /* Tipografia Acessível em Fundo Claro */
+  --text-primary: #0f172a;     /* Contraste > 15:1 */
+  --text-secondary: #475569;   /* Contraste > 7:1 */
+  --text-muted: #64748b;       /* Contraste > 4.5:1 */
+
+  /* Header & Footer */
+  --header-bg: rgba(248, 250, 252, 0.85);
+  --header-mobile-bg: rgba(248, 250, 252, 0.98);
+  --bg-footer: #f1f5f9;
 }
 
 /* Padding Responsivo para Container */

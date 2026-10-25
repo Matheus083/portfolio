@@ -13,6 +13,27 @@ const NAV_LINKS = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  // Inicializa o tema no cliente com base no atributo HTML já setado pelo script anti-flash
+  useEffect(() => {
+    const currentTheme =
+      document.documentElement.getAttribute('data-theme') === 'light'
+        ? 'light'
+        : 'dark';
+    setTheme(currentTheme);
+  }, []);
+
+  function toggleTheme() {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    try {
+      localStorage.setItem('theme', nextTheme);
+    } catch {
+      // localStorage indisponível ou em modo estrito
+    }
+  }
 
   // Fecha o menu móvel ao pressionar Escape
   useEffect(() => {
@@ -64,7 +85,7 @@ export function Header() {
             ))}
           </ul>
 
-          {/* Ações (GitHub + Toggle Mobile) */}
+          {/* Ações (GitHub + Tema + Toggle Mobile) */}
           <div className={styles.actions}>
             <a
               href="https://github.com/Matheus083"
@@ -89,6 +110,57 @@ export function Header() {
               </svg>
               <span className={styles.githubText}>GitHub</span>
             </a>
+
+            {/* Botão de Alternância de Tema */}
+            <button
+              type="button"
+              className={styles.themeToggle}
+              aria-label={
+                theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'
+              }
+              title={
+                theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'
+              }
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+              ) : (
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              )}
+            </button>
 
             {/* Botão de alternância do menu mobile */}
             <button
